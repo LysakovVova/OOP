@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"ru.nsu.lysakov","c":"Main","l":"Main()","u":"%3Cinit%3E()"}];updateSearchResults();
