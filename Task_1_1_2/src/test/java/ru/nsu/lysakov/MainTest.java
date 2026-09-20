@@ -1,10 +1,11 @@
 package ru.nsu.lysakov;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Тесты основных классов игры.
@@ -229,27 +230,93 @@ class MainTest {
         assertEquals(25, gambler.getNominal());
     }
 
-    /**
-     * Проверка увеличения очков пользователя.
-     */
     @Test
-    void testIncScoreUser() {
+    void testGameStateScore() {
         GameStateClass state = new GameStateClass();
 
         state.incScoreUser();
-
-        assertEquals(1, state.getScoreUser());
-    }
-
-    /**
-     * Проверка увеличения очков диллера.
-     */
-    @Test
-    void testIncScoreDiller() {
-        GameStateClass state = new GameStateClass();
-
+        state.incScoreUser();
         state.incScoreDiller();
 
+        assertEquals(2, state.getScoreUser());
         assertEquals(1, state.getScoreDiller());
+
+        state.clear();
+
+        assertEquals(0, state.getScoreUser());
+        assertEquals(0, state.getScoreDiller());
+        assertEquals(GameState.START_GAME, state.getState());
+    }
+
+    @Test
+    void testCardPrint() {
+        Card card = new NumberCard("7", Suit.HEARTS);
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        card.print();
+
+        System.setOut(oldOut);
+
+        assertEquals("7♥", output.toString());
+    }
+
+    @Test
+    void testClosedCardPrint() {
+        Card card = new NumberCard("7", Suit.HEARTS);
+        card.hide();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        card.print();
+
+        System.setOut(oldOut);
+
+        assertTrue(output.toString().contains("закрытая карта"));
+    }
+
+    @Test
+    void testPrintState() {
+        Gambler user = new Gambler();
+        Gambler diller = new Gambler();
+
+        user.addCard(new NumberCard("10", Suit.HEARTS));
+        diller.addCard(new NumberCard("8", Suit.SPADES));
+
+        Myconsole console = new Myconsole();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        console.printState(user, diller);
+
+        System.setOut(oldOut);
+
+        String text = output.toString();
+
+        assertTrue(text.contains("Вы"));
+        assertTrue(text.contains("Диллер"));
+        assertTrue(text.contains("10"));
+        assertTrue(text.contains("8"));
+    }
+
+    @Test
+    void testClearConsole() {
+        Myconsole console = new Myconsole();
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        console.clearConsole();
+
+        System.setOut(oldOut);
+
+        assertFalse(output.toString().isEmpty());
     }
 }
