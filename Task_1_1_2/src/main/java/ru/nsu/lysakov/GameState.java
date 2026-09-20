@@ -1,7 +1,7 @@
 package ru.nsu.lysakov;
 
 /**
- * возможные состояния игры
+ * Возможные состояния игры.
  */
 public enum GameState {
     START_GAME,

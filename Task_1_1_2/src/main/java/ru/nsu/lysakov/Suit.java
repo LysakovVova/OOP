@@ -1,8 +1,8 @@
 package ru.nsu.lysakov;
 
 /**
- * возможные масти карт
- * также метод для получения символа масти
+ * Возможные масти карт.
+ * Также содержит метод для получения символа масти.
  */
 public enum Suit {
     HEARTS,
@@ -10,6 +10,11 @@ public enum Suit {
     CLUBS,
     SPADES;
 
+    /**
+     * Получение символа масти.
+     *
+     * @return символ масти
+     */
     public String toSymbol() {
         return switch (this) {
             case HEARTS -> "♥";

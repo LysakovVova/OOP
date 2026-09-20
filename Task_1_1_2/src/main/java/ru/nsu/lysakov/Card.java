@@ -1,37 +1,54 @@
 package ru.nsu.lysakov;
-/// абстрактный класс карты
+
+/**
+ * Абстрактный класс карты.
+ */
 public abstract class Card {
     protected String symbol;
     protected Suit suit;
-    protected Boolean closed = false;
+    protected boolean closed = false;
 
-    /// конструктор карты
-    /// @param symbol символ карты
-    /// @param suit масть карты
-    Card(String  symbol, Suit suit) {
+    /**
+     * Конструктор карты.
+     *
+     * @param symbol символ карты
+     * @param suit масть карты
+     */
+    Card(String symbol, Suit suit) {
         this.symbol = symbol;
         this.suit = suit;
     }
 
-    /// печать карты в консоль
+    /**
+     * Печать карты в консоль.
+     */
     void print() {
         if (closed) {
             System.out.println("закрытая карта");
             return;
         }
-        System.out.print(symbol + "" +  suit.toSymbol());
+
+        System.out.print(symbol + suit.toSymbol());
     }
 
-    /// закрытие карты
+    /**
+     * Закрытие карты.
+     */
     void hide() {
         closed = true;
     }
 
-    /// открытие карты
+    /**
+     * Открытие карты.
+     */
     void open() {
         closed = false;
     }
 
-    /// получение номинала карты
+    /**
+     * Получение номинала карты.
+     *
+     * @return номинал карты
+     */
     abstract int getNominal();
 }

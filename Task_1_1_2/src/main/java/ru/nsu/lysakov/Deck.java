@@ -3,15 +3,17 @@ package ru.nsu.lysakov;
 import java.util.Random;
 
 /**
- * класс колоды карт
+ * Класс колоды карт.
  */
 public class Deck {
     private Card[] deck;
     private int size;
-    private Random random = new Random();
+    private final Random random = new Random();
 
-    /// создание колоды карт
-    Deck () {
+    /**
+     * Создание колоды карт.
+     */
+    Deck() {
         deck = new Card[52];
         size = 52;
 
@@ -26,21 +28,27 @@ public class Deck {
             deck[i * 13 + 9] = new PictureCard("J", suit);
             deck[i * 13 + 10] = new PictureCard("Q", suit);
             deck[i * 13 + 11] = new PictureCard("K", suit);
-
             deck[i * 13 + 12] = new AceCard("A", suit);
         }
     }
 
-    /// сброс колоды
+    /**
+     * Сброс колоды.
+     */
     public void reset() {
         size = 52;
     }
 
-    /// взятие карты из колоды
+    /**
+     * Взятие карты из колоды.
+     *
+     * @return случайная карта из колоды или null, если колода пуста
+     */
     public Card takeCard() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
+
         int index = random.nextInt(size);
         Card ans = deck[index];
 
@@ -49,6 +57,7 @@ public class Deck {
 
         size--;
         ans.open();
+
         return ans;
     }
 }

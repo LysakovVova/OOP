@@ -1,57 +1,75 @@
 package ru.nsu.lysakov;
 
 /**
- * класс для хранения состояния игры
+ * Класс для хранения состояния игры.
  */
 public class GameStateClass {
     private int scoreUser;
     private int scoreDiller;
     private GameState state;
 
-    /// инициализация состояния игры
+    /**
+     * Инициализация состояния игры.
+     */
     GameStateClass() {
         scoreDiller = 0;
         scoreUser = 0;
         state = GameState.START_GAME;
     }
 
-    /// очистка состояния игры
+    /**
+     * Очистка состояния игры.
+     */
     void clear() {
         scoreDiller = 0;
         scoreUser = 0;
         state = GameState.START_GAME;
     }
 
-    /// установка состояния игры
-    /// @param newState новое состояние игры
+    /**
+     * Установка состояния игры.
+     *
+     * @param newState новое состояние игры
+     */
     void setStateGame(GameState newState) {
         state = newState;
     }
 
-    /// получение состояния игры
-    /// @return текущее состояние игры
+    /**
+     * Получение состояния игры.
+     *
+     * @return текущее состояние игры
+     */
     GameState getState() {
         return state;
     }
 
-    /// увеличение очков пользователя
-    void incScoreUser () {
+    /**
+     * Увеличение очков пользователя.
+     */
+    void incScoreUser() {
         scoreUser++;
     }
 
-    /// увеличение очков диллера
+    /**
+     * Увеличение очков диллера.
+     */
     void incScoreDiller() {
         scoreDiller++;
     }
 
-    /// печать счета игры
+    /**
+     * Печать счёта игры.
+     */
     void printScore() {
         if (scoreUser == scoreDiller) {
             System.out.println(scoreUser + " : " + scoreDiller);
         }
+
         if (scoreUser > scoreDiller) {
             System.out.println(scoreUser + " : " + scoreDiller + " в вашу пользу");
         }
+
         if (scoreUser < scoreDiller) {
             System.out.println(scoreDiller + " : " + scoreUser + " в пользу диллера");
         }
