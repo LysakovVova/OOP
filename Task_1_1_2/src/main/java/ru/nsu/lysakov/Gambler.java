@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /// класс игрока, который хранит карты в руке и умеет их открывать/закрывать
 public class Gambler {
     private ArrayList<Card> hand;
+
     /// конструктор
     Gambler() {
         hand = new ArrayList<>();
@@ -15,18 +16,20 @@ public class Gambler {
     public void addCard(Card card) {
         hand.add(card);
     }
+
     /// очистка руки
     public void reset() {
         for (Card card : hand) {
             card.open();
         }
-
         hand.clear();
     }
+
     /// закрытие последней карты в руке
     public void hideLastCard() {
         hand.get(hand.size() - 1).hide();
     }
+
     /// открытие последней карты в руке
     public void openLastCard() {
         hand.get(hand.size() - 1).open();
@@ -42,7 +45,6 @@ public class Gambler {
             if (card.closed) {
                 continue;
             }
-
             if (card instanceof AceCard) {
                 sum += 11;
                 aceCount++;
@@ -50,14 +52,13 @@ public class Gambler {
                 sum += card.getNominal();
             }
         }
-
         while (sum > 21 && aceCount > 0) {
             sum -= 10;
             aceCount--;
         }
-
         return sum;
     }
+
     /// печать карт в руке
     public void print() {
         for (Card card : hand) {
@@ -65,5 +66,4 @@ public class Gambler {
             System.out.print(" ");
         }
     }
-
 }

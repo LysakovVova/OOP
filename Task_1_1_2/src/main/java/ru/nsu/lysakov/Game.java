@@ -2,19 +2,16 @@ package ru.nsu.lysakov;
 
 import java.util.Random;
 import java.util.Scanner;
+
 /// класс для управления игрой
 public class Game {
     private int cntDeck;
     private int sizeDecks;
     private Deck[] decks;
-
     private Gambler diller;
     private Gambler user;
-
     private Random random = new Random();
-
     private GameStateClass state;
-
     private Myconsole console;
 
     /// выдача карты из колод
@@ -23,19 +20,15 @@ public class Game {
         while (true) {
             int index = random.nextInt(sizeDecks);
             Card card = decks[index].takeCard();
-
             if (card != null) {
                 return card;
             }
-
             Deck d = decks[index];
             decks[index] = decks[sizeDecks - 1];
             decks[sizeDecks - 1] = d;
             sizeDecks--;
-
             if (sizeDecks == 0) {
                 sizeDecks = cntDeck;
-
                 for (int i = 0; i < sizeDecks; ++i) {
                     decks[i].reset();
                 }
@@ -47,16 +40,12 @@ public class Game {
     private void newGame() {
         user.reset();
         diller.reset();
-
         diller.addCard(giveCard());
         user.addCard(giveCard());
         diller.addCard(giveCard());
         user.addCard(giveCard());
-
         diller.addCard(giveCard());
         diller.hideLastCard();
-
-
         state.setStateGame(GameState.USER_MOVE);
     }
 
@@ -69,15 +58,11 @@ public class Game {
         diller = new Gambler();
         user = new Gambler();
         console = new Myconsole();
-
         state = new GameStateClass();
-
         state.clear();
-
         for (int i = 0; i < cntDeck; ++i) {
             decks[i] = new Deck();
         }
-
         state.setStateGame(GameState.START_GAME);
         nextStep();
     }
@@ -88,36 +73,28 @@ public class Game {
         console.clearConsole();
         console.printState(user, diller);
         String s;
-
         if (user.getNominal() == 21) {
             state.setStateGame(GameState.END_GAME);
             return;
         }
-
         boolean error = false;
-
         while (true) {
             if (error) {
                 console.clearConsole();
                 System.out.println("Вы ввели не цифру 0 или 1. Повторите попытку");
                 console.printState(user, diller);
             }
-
             System.out.println(
                     "Ваш ход, введите:\n" +
                             "0: Остановить набор карт\n" +
                             "1: Получить ещё одну карту"
             );
-
             s = scanner.nextLine();
-
             if (s.length() != 1 || (s.charAt(0) != '0' && s.charAt(0) != '1')) {
                 error = true;
                 continue;
             }
-
             error = false;
-
             if (s.charAt(0) == '1') {
                 console.clearConsole();
                 user.addCard(giveCard());
@@ -127,7 +104,6 @@ public class Game {
                     return;
                 }
                 console.printState(user, diller);
-
             } else {
                 console.clearConsole();
                 console.printState(user, diller);
@@ -136,6 +112,7 @@ public class Game {
             }
         }
     }
+
     /// режим диллера - диллер набирает карты до тех пор, пока сумма карт меньше 17
     private void dillerMode() {
         diller.openLastCard();
@@ -144,7 +121,6 @@ public class Game {
         if (diller.getNominal() < 17) {
             stopGame();
         }
-
         while (diller.getNominal() < 17) {
             console.clearConsole();
             diller.addCard(giveCard());
@@ -168,6 +144,7 @@ public class Game {
         System.out.print("Вы выиграли раунд! Счёт  ");
         state.printScore();
     }
+
     /// выигрыш диллера
     private void winDiller() {
         console.clearConsole();
@@ -176,6 +153,7 @@ public class Game {
         System.out.print("Вы проиграли этот раунд! Счёт  ");
         state.printScore();
     }
+
     /// ничья
     private void noWin() {
         console.clearConsole();
@@ -183,14 +161,12 @@ public class Game {
         System.out.print("Этот раунд закончился в ничью! Счёт ");
         state.printScore();
     }
+
     /// завершение игры - определение победителя и вывод счета
     private void endGame() {
-
         console.clearConsole();
-
         int userScore = user.getNominal();
         int dillerScore = diller.getNominal();
-
         if (userScore > 21) {
             winDiller();
         } else if (dillerScore > 21) {
@@ -202,10 +178,10 @@ public class Game {
         } else {
             noWin();
         }
-
         stopGame();
         state.setStateGame(GameState.START_GAME);
     }
+
     /// ожидание нажатия enter для продолжения игры
     private void stopGame() {
         Scanner scanner = new Scanner(System.in);
@@ -213,6 +189,7 @@ public class Game {
         String s;
         s = scanner.nextLine();
     }
+
     /// основной метод, который определяет, какой режим игры сейчас активен и вызывает соответствующий метод
     void nextStep() {
         GameState st = state.getState();

@@ -1,6 +1,7 @@
 package ru.nsu.lysakov;
 
 import java.util.Random;
+
 /**
  * класс колоды карт
  */
@@ -8,6 +9,7 @@ public class Deck {
     private Card[] deck;
     private int size;
     private Random random = new Random();
+
     /// создание колоды карт
     Deck () {
         deck = new Card[52];
@@ -28,13 +30,17 @@ public class Deck {
             deck[i * 13 + 12] = new AceCard("A", suit);
         }
     }
+
     /// сброс колоды
     public void reset() {
         size = 52;
     }
+
     /// взятие карты из колоды
     public Card takeCard() {
-        if (size == 0) return null;
+        if (size == 0){
+            return null;
+        }
         int index = random.nextInt(size);
         Card ans = deck[index];
 
