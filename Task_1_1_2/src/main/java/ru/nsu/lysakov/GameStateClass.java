@@ -74,4 +74,22 @@ public class GameStateClass {
             System.out.println(scoreDiller + " : " + scoreUser + " в пользу диллера");
         }
     }
+
+    /**
+     * Получение очков пользователя.
+     *
+     * @return очки пользователя
+     */
+    int getScoreUser() {
+        return scoreUser;
+    }
+
+    /**
+     * Получение очков диллера.
+     *
+     * @return очки диллера
+     */
+    int getScoreDiller() {
+        return scoreDiller;
+    }
 }
