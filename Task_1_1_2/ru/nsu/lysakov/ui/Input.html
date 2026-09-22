@@ -107,13 +107,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getInitGameAction()" class="member-name-link">getInitGameAction</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает количество колод для новой игры.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayerAction()" class="member-name-link">getPlayerAction</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Возвращает действие игрока.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#waitEnter()" class="member-name-link">waitEnter</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Ожидает нажатия Enter.</div>
+</div>
 </div>
 </div>
 </div>
@@ -149,18 +155,29 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getPlayerAction()">
 <h3>getPlayerAction</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getPlayerAction</span>()</div>
+<div class="block">Возвращает действие игрока.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>0 для остановки, 1 для взятия карты, -1 при ошибке</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getInitGameAction()">
 <h3>getInitGameAction</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getInitGameAction</span>()</div>
+<div class="block">Возвращает количество колод для новой игры.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>количество колод от 1 до 10, либо -1 при неверном вводе</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="waitEnter()">
 <h3>waitEnter</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">waitEnter</span>()</div>
+<div class="block">Ожидает нажатия Enter.</div>
 </section>
 </li>
 </ul>
