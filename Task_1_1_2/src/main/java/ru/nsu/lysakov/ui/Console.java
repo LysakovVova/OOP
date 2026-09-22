@@ -58,8 +58,7 @@ public class Console {
             System.out.print(" : ");
             System.out.print(score.getDealerScore());
             System.out.println(" в вашу пользу");
-        }
-        else if (score.getDealerScore() > score.getPlayerScore()) {
+        } else if (score.getDealerScore() > score.getPlayerScore()) {
             System.out.print("Счёт стал равным ");
             System.out.print(score.getDealerScore());
             System.out.print(" : ");

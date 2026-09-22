@@ -52,7 +52,7 @@ public class Card {
     * @return статус карты
     */
     public boolean isClosed() {
-       return closed;
+        return closed;
     }
 
     /**
@@ -61,7 +61,7 @@ public class Card {
     * @return true, если это туз
     */
     public boolean isAce() {
-       return "A".equals(symbol);
+        return "A".equals(symbol);
     }
 
     /**
@@ -70,18 +70,17 @@ public class Card {
     * @return номинал карты
     */
     public int getNominal() {
-       if (closed) {
-           return 0;
-       }
+        if (closed) {
+            return 0;
+        }
 
-       if (isAce()) {
-           return 11;
-       }
+        if (isAce()) {
+            return 11;
+        }
+        if ("J".equals(symbol) || "Q".equals(symbol) || "K".equals(symbol)) {
+            return 10;
+        }
 
-       if ("J".equals(symbol) || "Q".equals(symbol) || "K".equals(symbol)) {
-           return 10;
-       }
-
-       return Integer.parseInt(symbol);
+        return Integer.parseInt(symbol);
     }
 }

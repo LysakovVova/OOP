@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
 import ru.nsu.lysakov.cards.Card;
 import ru.nsu.lysakov.cards.Suit;
 import ru.nsu.lysakov.game.BlackjackRules;
