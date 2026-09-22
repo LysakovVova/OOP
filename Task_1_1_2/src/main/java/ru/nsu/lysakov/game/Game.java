@@ -1,7 +1,9 @@
 package ru.nsu.lysakov.game;
 
-import ru.nsu.lysakov.players.*;
-import ru.nsu.lysakov.ui.*;
+import ru.nsu.lysakov.players.Dealer;
+import ru.nsu.lysakov.players.Player;
+import ru.nsu.lysakov.ui.Console;
+import ru.nsu.lysakov.ui.Input;
 
 /**
  * Класс для управления игрой.
@@ -56,6 +58,9 @@ public class Game {
             case END_GAME -> endRound();
             case STOP_GAME -> {
                 // если это состояние вообще нужно
+            }
+            default -> {
+                // no-op
             }
         }
     }
@@ -139,6 +144,9 @@ public class Game {
                 break;
             case DRAW:
                 console.printDraw(score);
+                break;
+            default:
+                break;
         }
         input.waitEnter();
 

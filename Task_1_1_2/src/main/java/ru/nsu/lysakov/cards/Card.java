@@ -48,9 +48,12 @@ public class Card {
 
     /**
     * Получение статуса карты.
+    *
     * @return статус карты
     */
-    public boolean isClosed() { return closed; }
+    public boolean isClosed() {
+       return closed;
+    }
 
     /**
     * Проверяет, является ли карта тузом.

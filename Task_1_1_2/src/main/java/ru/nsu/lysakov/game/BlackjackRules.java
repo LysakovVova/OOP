@@ -1,6 +1,7 @@
 package ru.nsu.lysakov.game;
 
-import ru.nsu.lysakov.players.*;
+import ru.nsu.lysakov.players.Dealer;
+import ru.nsu.lysakov.players.Player;
 
 /**
  * Класс, определяющий правила игры в блэкджек.

@@ -67,7 +67,7 @@ class MainTest {
 
     @Test
     void blackjackRulesChooseCorrectWinner() {
-        BlackjackRules rules = new BlackjackRules();
+        final BlackjackRules rules = new BlackjackRules();
 
         Player player = new Player();
         Dealer dealer = new Dealer();

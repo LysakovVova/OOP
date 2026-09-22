@@ -1,7 +1,8 @@
 package ru.nsu.lysakov.game;
 
 import java.util.Random;
-import ru.nsu.lysakov.cards.*;
+import ru.nsu.lysakov.cards.Card;
+import ru.nsu.lysakov.cards.Deck;
 
 /**
  * Класс, представляющий колоды карт (Shoe).
@@ -13,6 +14,11 @@ public class Shoe {
     private int activeDecks;
     private final Random random = new Random();
 
+    /**
+     * Создаёт шулеру с указанным числом колод.
+     *
+     * @param countDecks количество колод
+     */
     public Shoe(int countDecks) {
         this.countDecks = countDecks;
         this.activeDecks = countDecks;

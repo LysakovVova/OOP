@@ -1,7 +1,7 @@
 package ru.nsu.lysakov.players;
 
 import java.util.ArrayList;
-import ru.nsu.lysakov.cards.*;
+import ru.nsu.lysakov.cards.Card;
 
 /**
  * Класс игрока, который хранит карты в руке.
