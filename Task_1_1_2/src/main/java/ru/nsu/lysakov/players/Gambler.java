@@ -1,19 +1,13 @@
-package ru.nsu.lysakov;
+package ru.nsu.lysakov.players;
 
 import java.util.ArrayList;
+import ru.nsu.lysakov.cards.*;
 
 /**
- * Класс игрока, который хранит карты в руке и умеет их открывать и закрывать.
+ * Класс игрока, который хранит карты в руке.
  */
 public class Gambler {
-    private ArrayList<Card> hand;
-
-    /**
-     * Конструктор игрока.
-     */
-    Gambler() {
-        hand = new ArrayList<>();
-    }
+    protected final ArrayList<Card> hand = new ArrayList<>();
 
     /**
      * Добавление карты в руку.
@@ -36,20 +30,6 @@ public class Gambler {
     }
 
     /**
-     * Закрытие последней карты в руке.
-     */
-    public void hideLastCard() {
-        hand.get(hand.size() - 1).hide();
-    }
-
-    /**
-     * Открытие последней карты в руке.
-     */
-    public void openLastCard() {
-        hand.get(hand.size() - 1).open();
-    }
-
-    /**
      * Получение номинала руки.
      *
      * @return номинал руки
@@ -59,11 +39,11 @@ public class Gambler {
         int aceCount = 0;
 
         for (Card card : hand) {
-            if (card.closed) {
+            if (card.isClosed()) {
                 continue;
             }
 
-            if (card instanceof AceCard) {
+            if (card.isAce()) {
                 sum += 11;
                 aceCount++;
             } else {

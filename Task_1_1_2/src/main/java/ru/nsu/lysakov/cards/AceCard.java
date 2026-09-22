@@ -1,17 +1,17 @@
-package ru.nsu.lysakov;
+package ru.nsu.lysakov.cards;
 
 /**
- * Класс карты с картинным номиналом.
+ * Класс карты с тузом.
  */
-public class PictureCard extends Card {
+public class AceCard extends Card {
 
     /**
-     * Конструктор карты с картинным номиналом.
+     * Конструктор карты с тузом.
      *
      * @param symbol символ карты
      * @param suit масть карты
      */
-    PictureCard(String symbol, Suit suit) {
+    public AceCard(String symbol, Suit suit) {
         super(symbol, suit);
     }
 
@@ -20,12 +20,11 @@ public class PictureCard extends Card {
      *
      * @return номинал карты
      */
-    @Override
-    int getNominal() {
+    public int getNominal() {
         if (closed) {
             return 0;
         }
 
-        return 10;
+        return 11;
     }
 }

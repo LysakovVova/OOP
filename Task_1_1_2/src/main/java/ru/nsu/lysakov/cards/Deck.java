@@ -1,4 +1,4 @@
-package ru.nsu.lysakov;
+package ru.nsu.lysakov.cards;
 
 import java.util.Random;
 
@@ -13,7 +13,7 @@ public class Deck {
     /**
      * Создание колоды карт.
      */
-    Deck() {
+    public Deck() {
         deck = new Card[52];
         size = 52;
 

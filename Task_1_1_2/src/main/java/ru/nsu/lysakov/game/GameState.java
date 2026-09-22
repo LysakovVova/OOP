@@ -1,4 +1,4 @@
-package ru.nsu.lysakov;
+package ru.nsu.lysakov.game;
 
 /**
  * Возможные состояния игры.
@@ -6,7 +6,7 @@ package ru.nsu.lysakov;
 public enum GameState {
     START_GAME,
     USER_MOVE,
-    DILLER_MOVE,
+    DEALER_MOVE,
     END_GAME,
     STOP_GAME
 }

@@ -1,4 +1,4 @@
-package ru.nsu.lysakov;
+package ru.nsu.lysakov.cards;
 
 /**
  * Возможные масти карт.

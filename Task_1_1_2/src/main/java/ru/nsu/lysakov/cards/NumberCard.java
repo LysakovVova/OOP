@@ -1,4 +1,4 @@
-package ru.nsu.lysakov;
+package ru.nsu.lysakov.cards;
 
 /**
  * Класс карты с числовым номиналом.
@@ -12,7 +12,7 @@ public class NumberCard extends Card {
      * @param symbol символ карты
      * @param suit масть карты
      */
-    NumberCard(String symbol, Suit suit) {
+    public NumberCard(String symbol, Suit suit) {
         super(symbol, suit);
         numberNominal = Integer.parseInt(symbol);
     }
@@ -22,8 +22,7 @@ public class NumberCard extends Card {
      *
      * @return номинал карты
      */
-    @Override
-    int getNominal() {
+    public int getNominal() {
         if (closed) {
             return 0;
         }
