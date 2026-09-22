@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.lysakov"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.lysakov"},{"l":"ru.nsu.lysakov.cards"},{"l":"ru.nsu.lysakov.game"},{"l":"ru.nsu.lysakov.players"},{"l":"ru.nsu.lysakov.ui"}];updateSearchResults();
