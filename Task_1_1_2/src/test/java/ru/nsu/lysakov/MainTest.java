@@ -6,17 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.nsu.lysakov.cards.AceCard;
-import ru.nsu.lysakov.cards.Card;
-import ru.nsu.lysakov.cards.NumberCard;
-import ru.nsu.lysakov.cards.Suit;
+import ru.nsu.lysakov.cards.*;
 import ru.nsu.lysakov.game.Shoe;
 import ru.nsu.lysakov.players.Player;
 import ru.nsu.lysakov.ui.Input;
+import ru.nsu.lysakov.players.Gambler;
 
 /**
  * Тесты игры Blackjack.
@@ -41,6 +41,20 @@ class MainTest {
         assertEquals("♦", Suit.DIAMONDS.toSymbol());
         assertEquals("♣", Suit.CLUBS.toSymbol());
         assertEquals("♠", Suit.SPADES.toSymbol());
+    }
+
+    /**
+     * Проверка номинальной стоимости карт.
+     */
+    @Test
+    void CardNominalValueShouldBeCorrect() {
+        Card ace = new AceCard("A", Suit.HEARTS);
+        Card numberCard = new NumberCard("10", Suit.SPADES);
+        Card kingCard = new PictureCard("K", Suit.SPADES);
+
+        assertEquals(11, ace.getNominal());
+        assertEquals(10, numberCard.getNominal());
+        assertEquals(10, kingCard.getNominal());
     }
 
     /**
@@ -216,4 +230,87 @@ class MainTest {
 
         return new Input();
     }
+
+
+    /**
+     * Проверка туза как 11.
+     */
+    @Test
+    void aceShouldCountAsEleven() {
+        Gambler gambler = new Gambler();
+
+        gambler.addCard(new AceCard("A", Suit.HEARTS));
+        gambler.addCard(new NumberCard("5", Suit.CLUBS));
+
+        assertEquals(16, gambler.getNominal());
+    }
+
+    /**
+     * Проверка нескольких тузов.
+     */
+    @Test
+    void multipleAcesShouldBeHandledCorrectly() {
+        Gambler gambler = new Gambler();
+
+        gambler.addCard(new AceCard("A", Suit.HEARTS));
+        gambler.addCard(new AceCard("A", Suit.SPADES));
+        gambler.addCard(new NumberCard("9", Suit.CLUBS));
+
+        assertEquals(21, gambler.getNominal());
+    }
+
+    /**
+     * Проверка закрытой карты.
+     */
+    @Test
+    void closedCardShouldNotBeCounted() {
+        Gambler gambler = new Gambler();
+
+        NumberCard card = new NumberCard("10", Suit.HEARTS);
+        card.hide();
+
+        gambler.addCard(card);
+        gambler.addCard(new NumberCard("5", Suit.CLUBS));
+
+        assertEquals(5, gambler.getNominal());
+    }
+
+    /**
+     * Проверка очистки руки.
+     */
+    @Test
+    void resetShouldClearHand() {
+        Gambler gambler = new Gambler();
+
+        gambler.addCard(new NumberCard("10", Suit.HEARTS));
+        gambler.addCard(new NumberCard("5", Suit.CLUBS));
+
+        gambler.reset();
+
+        assertEquals(0, gambler.getNominal());
+    }
+
+    /**
+     * Проверка печати руки.
+     */
+    @Test
+    void printShouldOutputCards() {
+        Gambler gambler = new Gambler();
+
+        gambler.addCard(new NumberCard("7", Suit.HEARTS));
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
+        System.setOut(new PrintStream(output));
+
+        try {
+            gambler.print();
+        } finally {
+            System.setOut(oldOut);
+        }
+
+        assertTrue(output.toString().contains("7"));
+    }
+
+
 }
