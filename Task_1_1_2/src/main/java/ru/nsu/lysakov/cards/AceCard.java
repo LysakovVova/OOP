@@ -11,7 +11,7 @@ public class AceCard extends Card {
      * @param symbol символ карты
      * @param suit масть карты
      */
-    public AceCard(String symbol, Suit suit) {
+    public AceCard(CardEnum symbol, Suit suit) {
         super(symbol, suit);
     }
 

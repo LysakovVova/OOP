@@ -4,7 +4,7 @@ package ru.nsu.lysakov.cards;
  * Класс карты.
  */
 public class Card {
-    protected String symbol;
+    protected CardEnum symbol;
     protected Suit suit;
     protected boolean closed = false;
 
@@ -14,7 +14,7 @@ public class Card {
      * @param symbol символ карты
      * @param suit масть карты
      */
-    public Card(String symbol, Suit suit) {
+    public Card(CardEnum symbol, Suit suit) {
         this.symbol = symbol;
         this.suit = suit;
     }
@@ -28,7 +28,7 @@ public class Card {
             return;
         }
 
-        System.out.print(symbol + suit.toSymbol());
+        System.out.print(symbol.toSymbol() + suit.toSymbol());
     }
 
     /**
@@ -61,7 +61,7 @@ public class Card {
     * @return true, если это туз
     */
     public boolean isAce() {
-        return "A".equals(symbol);
+        return symbol == CardEnum.ACE;
     }
 
     /**
@@ -77,10 +77,10 @@ public class Card {
         if (isAce()) {
             return 11;
         }
-        if ("J".equals(symbol) || "Q".equals(symbol) || "K".equals(symbol)) {
+        if (symbol == CardEnum.JACK || symbol == CardEnum.QUEEN || symbol == CardEnum.KING) {
             return 10;
         }
 
-        return Integer.parseInt(symbol);
+        return Integer.parseInt(symbol.toString());
     }
 }

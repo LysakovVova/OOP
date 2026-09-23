@@ -17,6 +17,7 @@ import ru.nsu.lysakov.game.Shoe;
 import ru.nsu.lysakov.players.Player;
 import ru.nsu.lysakov.ui.Input;
 import ru.nsu.lysakov.players.Gambler;
+import ru.nsu.lysakov.cards.CardEnum;
 
 /**
  * Тесты игры Blackjack.
@@ -48,9 +49,9 @@ class MainTest {
      */
     @Test
     void CardNominalValueShouldBeCorrect() {
-        Card ace = new AceCard("A", Suit.HEARTS);
-        Card numberCard = new NumberCard("10", Suit.SPADES);
-        Card kingCard = new PictureCard("K", Suit.SPADES);
+        Card ace = new AceCard(CardEnum.ACE, Suit.HEARTS);
+        Card numberCard = new NumberCard(CardEnum.TEN, Suit.SPADES);
+        Card kingCard = new PictureCard(CardEnum.NINE, Suit.SPADES);
 
         assertEquals(11, ace.getNominal());
         assertEquals(10, numberCard.getNominal());
@@ -64,8 +65,8 @@ class MainTest {
     void playerCanTakeCardWhenScoreLessThan21() {
         Player player = new Player();
 
-        player.addCard(new NumberCard("10", Suit.HEARTS));
-        player.addCard(new NumberCard("9", Suit.SPADES));
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        player.addCard(new NumberCard(CardEnum.NINE, Suit.SPADES));
 
         assertTrue(player.canTakeCard());
     }
@@ -77,8 +78,8 @@ class MainTest {
     void playerCannotTakeCardWhenScoreEquals21() {
         Player player = new Player();
 
-        player.addCard(new NumberCard("10", Suit.HEARTS));
-        player.addCard(new AceCard("A", Suit.SPADES));
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        player.addCard(new AceCard(CardEnum.ACE, Suit.SPADES));
 
         assertFalse(player.canTakeCard());
     }
@@ -90,9 +91,9 @@ class MainTest {
     void playerCannotTakeCardWhenScoreMoreThan21() {
         Player player = new Player();
 
-        player.addCard(new NumberCard("10", Suit.HEARTS));
-        player.addCard(new NumberCard("10", Suit.SPADES));
-        player.addCard(new NumberCard("5", Suit.CLUBS));
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.SPADES));
+        player.addCard(new NumberCard(CardEnum.FIVE, Suit.CLUBS));
 
         assertFalse(player.canTakeCard());
     }
@@ -239,8 +240,8 @@ class MainTest {
     void aceShouldCountAsEleven() {
         Gambler gambler = new Gambler();
 
-        gambler.addCard(new AceCard("A", Suit.HEARTS));
-        gambler.addCard(new NumberCard("5", Suit.CLUBS));
+        gambler.addCard(new AceCard(CardEnum.ACE, Suit.HEARTS));
+        gambler.addCard(new NumberCard(CardEnum.FIVE, Suit.CLUBS));
 
         assertEquals(16, gambler.getNominal());
     }
@@ -252,9 +253,9 @@ class MainTest {
     void multipleAcesShouldBeHandledCorrectly() {
         Gambler gambler = new Gambler();
 
-        gambler.addCard(new AceCard("A", Suit.HEARTS));
-        gambler.addCard(new AceCard("A", Suit.SPADES));
-        gambler.addCard(new NumberCard("9", Suit.CLUBS));
+        gambler.addCard(new AceCard(CardEnum.ACE, Suit.HEARTS));
+        gambler.addCard(new AceCard(CardEnum.ACE, Suit.SPADES));
+        gambler.addCard(new NumberCard(CardEnum.NINE, Suit.CLUBS));
 
         assertEquals(21, gambler.getNominal());
     }
@@ -266,11 +267,11 @@ class MainTest {
     void closedCardShouldNotBeCounted() {
         Gambler gambler = new Gambler();
 
-        NumberCard card = new NumberCard("10", Suit.HEARTS);
+        NumberCard card = new NumberCard(CardEnum.TEN, Suit.HEARTS);
         card.hide();
 
         gambler.addCard(card);
-        gambler.addCard(new NumberCard("5", Suit.CLUBS));
+        gambler.addCard(new NumberCard(CardEnum.FIVE, Suit.CLUBS));
 
         assertEquals(5, gambler.getNominal());
     }
@@ -282,8 +283,8 @@ class MainTest {
     void resetShouldClearHand() {
         Gambler gambler = new Gambler();
 
-        gambler.addCard(new NumberCard("10", Suit.HEARTS));
-        gambler.addCard(new NumberCard("5", Suit.CLUBS));
+        gambler.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        gambler.addCard(new NumberCard(CardEnum.FIVE, Suit.CLUBS));
 
         gambler.reset();
 
@@ -297,7 +298,7 @@ class MainTest {
     void printShouldOutputCards() {
         Gambler gambler = new Gambler();
 
-        gambler.addCard(new NumberCard("7", Suit.HEARTS));
+        gambler.addCard(new NumberCard(CardEnum.SEVEN, Suit.HEARTS));
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream oldOut = System.out;

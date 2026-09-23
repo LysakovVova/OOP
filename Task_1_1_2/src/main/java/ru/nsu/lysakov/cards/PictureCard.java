@@ -11,7 +11,7 @@ public class PictureCard extends Card {
      * @param symbol символ карты
      * @param suit масть карты
      */
-    public PictureCard(String symbol, Suit suit) {
+    public PictureCard(CardEnum symbol, Suit suit) {
         super(symbol, suit);
     }
 

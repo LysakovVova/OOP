@@ -12,9 +12,9 @@ public class NumberCard extends Card {
      * @param symbol символ карты
      * @param suit масть карты
      */
-    public NumberCard(String symbol, Suit suit) {
+    public NumberCard(CardEnum symbol, Suit suit) {
         super(symbol, suit);
-        numberNominal = Integer.parseInt(symbol);
+        numberNominal = Integer.parseInt(symbol.toSymbol());
     }
 
     /**
