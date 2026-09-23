@@ -10,11 +10,12 @@ public class Deck {
     private int size;
     private final Random random = new Random();
     private static final CardEnum[] cardSymbols = {
-            CardEnum.TWO, CardEnum.THREE, CardEnum.FOUR, CardEnum.FIVE,
-            CardEnum.SIX, CardEnum.SEVEN, CardEnum.EIGHT, CardEnum.NINE,
-            CardEnum.TEN, CardEnum.JACK, CardEnum.QUEEN, CardEnum.KING,
-            CardEnum.ACE
+        CardEnum.TWO, CardEnum.THREE, CardEnum.FOUR, CardEnum.FIVE,
+        CardEnum.SIX, CardEnum.SEVEN, CardEnum.EIGHT, CardEnum.NINE,
+        CardEnum.TEN, CardEnum.JACK, CardEnum.QUEEN, CardEnum.KING,
+        CardEnum.ACE
     };
+
     /**
      * Создание колоды карт.
      */
@@ -30,7 +31,9 @@ public class Deck {
 
                 if (symbol == CardEnum.ACE) {
                     deck[i * 13 + j] = new AceCard(symbol, suit);
-                } else if (symbol == CardEnum.JACK || symbol == CardEnum.QUEEN || symbol == CardEnum.KING) {
+                } else if (symbol == CardEnum.JACK
+                        || symbol == CardEnum.QUEEN
+                        || symbol == CardEnum.KING) {
                     deck[i * 13 + j] = new PictureCard(symbol, suit);
                 } else {
                     deck[i * 13 + j] = new NumberCard(symbol, suit);

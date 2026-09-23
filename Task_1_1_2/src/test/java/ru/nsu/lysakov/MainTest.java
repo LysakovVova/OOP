@@ -12,12 +12,16 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import ru.nsu.lysakov.cards.*;
+import ru.nsu.lysakov.cards.AceCard;
+import ru.nsu.lysakov.cards.Card;
+import ru.nsu.lysakov.cards.CardEnum;
+import ru.nsu.lysakov.cards.NumberCard;
+import ru.nsu.lysakov.cards.PictureCard;
+import ru.nsu.lysakov.cards.Suit;
 import ru.nsu.lysakov.game.Shoe;
+import ru.nsu.lysakov.players.Gambler;
 import ru.nsu.lysakov.players.Player;
 import ru.nsu.lysakov.ui.Input;
-import ru.nsu.lysakov.players.Gambler;
-import ru.nsu.lysakov.cards.CardEnum;
 
 /**
  * Тесты игры Blackjack.
@@ -48,7 +52,7 @@ class MainTest {
      * Проверка номинальной стоимости карт.
      */
     @Test
-    void CardNominalValueShouldBeCorrect() {
+    void cardNominalValueShouldBeCorrect() {
         Card ace = new AceCard(CardEnum.ACE, Suit.HEARTS);
         Card numberCard = new NumberCard(CardEnum.TEN, Suit.SPADES);
         Card kingCard = new PictureCard(CardEnum.NINE, Suit.SPADES);

@@ -1,5 +1,8 @@
 package ru.nsu.lysakov.cards;
 
+/**
+ * Номиналы карт.
+ */
 public enum CardEnum {
     ONE,
     TWO,
