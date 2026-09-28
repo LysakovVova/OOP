@@ -1,8 +1,15 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'application'
 }
 
+application {
+    mainClass = 'ru.nsu.lysakov.Main'
+}
+tasks.named('run') {
+    standardInput = System.in
+}
 repositories {
     mavenCentral()
 }
@@ -21,4 +28,10 @@ jacocoTestReport {
         xml.required = true
         html.required = true
     }
+}
+
+tasks.withType(JavaExec).configureEach {
+    jvmArgs '-Dfile.encoding=UTF-8',
+            '-Dstdout.encoding=UTF-8',
+            '-Dstderr.encoding=UTF-8'
 }
