@@ -27,6 +27,10 @@ public class Input {
             return 1;
         }
 
+        if (input.equals("2")) {
+            return 2;
+        }
+
         return -1;
     }
 

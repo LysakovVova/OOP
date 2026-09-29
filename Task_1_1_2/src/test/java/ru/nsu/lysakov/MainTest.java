@@ -18,7 +18,10 @@ import ru.nsu.lysakov.cards.CardEnum;
 import ru.nsu.lysakov.cards.NumberCard;
 import ru.nsu.lysakov.cards.PictureCard;
 import ru.nsu.lysakov.cards.Suit;
+import ru.nsu.lysakov.game.Game;
+import ru.nsu.lysakov.game.RoundResult;
 import ru.nsu.lysakov.game.Shoe;
+import ru.nsu.lysakov.players.Dealer;
 import ru.nsu.lysakov.players.Gambler;
 import ru.nsu.lysakov.players.Player;
 import ru.nsu.lysakov.ui.Input;
@@ -61,6 +64,7 @@ class MainTest {
         assertEquals(10, numberCard.getNominal());
         assertEquals(10, kingCard.getNominal());
     }
+
 
     /**
      * Игрок может брать карту, если сумма меньше 21.
@@ -318,4 +322,57 @@ class MainTest {
     }
 
 
+    /**
+     * Проверка победы игрока.
+     */
+    @Test
+    void playerShouldWinWhenScoreIsHigher() {
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        player.addCard(new NumberCard(CardEnum.NINE, Suit.SPADES));
+
+        dealer.addCard(new NumberCard(CardEnum.TEN, Suit.CLUBS));
+        dealer.addCard(new NumberCard(CardEnum.SEVEN, Suit.DIAMONDS));
+
+
+        assertEquals(RoundResult.PLAYER_WIN, Game.checkWinner(player, dealer));
+    }
+
+    /**
+     * Проверка победы дилера.
+     */
+    @Test
+    void dealerShouldWinWhenScoreIsHigher() {
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        player.addCard(new NumberCard(CardEnum.SEVEN, Suit.SPADES));
+
+        dealer.addCard(new NumberCard(CardEnum.TEN, Suit.CLUBS));
+        dealer.addCard(new NumberCard(CardEnum.NINE, Suit.DIAMONDS));
+
+
+        assertEquals(RoundResult.DEALER_WIN, Game.checkWinner(player, dealer));
+    }
+
+    /**
+     * Проверка ничьей.
+     */
+    @Test
+    void gameShouldBeDrawWhenScoresAreEqual() {
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+
+        player.addCard(new NumberCard(CardEnum.TEN, Suit.HEARTS));
+        player.addCard(new NumberCard(CardEnum.EIGHT, Suit.SPADES));
+
+        dealer.addCard(new NumberCard(CardEnum.TEN, Suit.CLUBS));
+        dealer.addCard(new NumberCard(CardEnum.EIGHT, Suit.DIAMONDS));
+
+
+        assertEquals(RoundResult.DRAW, Game.checkWinner(player, dealer));
+    }
 }
