@@ -16,8 +16,7 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game();
         // Запуск игрового цикла.
-        while (true) {
-            game.nextStep();
+        while (!game.nextStep()) {
         }
     }
 }

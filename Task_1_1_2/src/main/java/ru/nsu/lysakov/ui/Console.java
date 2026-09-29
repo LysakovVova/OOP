@@ -49,6 +49,7 @@ public class Console {
     public void printUserAction() {
         System.out.println("0 - Закончить набор карт");
         System.out.println("1 - Взять ещё одну карту");
+        System.out.println("2 - Остановить игру");
     }
 
     private void printScore(GameScore score) {

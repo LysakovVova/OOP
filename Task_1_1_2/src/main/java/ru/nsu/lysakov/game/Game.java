@@ -50,17 +50,29 @@ public class Game {
      * В зависимости от состояния игры вызывает соответствующие методы для начала раунда,
      * хода игрока, хода дилера или завершения раунда.
      */
-    public void nextStep() {
+    public boolean nextStep() {
         switch (state) {
-            case START_GAME -> startRound();
-            case USER_MOVE -> playerTurn();
-            case DEALER_MOVE -> dealerTurn();
-            case END_GAME -> endRound();
+            case START_GAME -> {
+                startRound();
+                return false;
+            }
+            case USER_MOVE -> {
+                playerTurn();
+                return false;
+            }
+            case DEALER_MOVE -> {
+                dealerTurn();
+                return false;
+            }
+            case END_GAME -> {
+                endRound();
+                return false;
+            }
             case STOP_GAME -> {
-                // если это состояние вообще нужно
+                return true;
             }
             default -> {
-                // no-op
+                return false;
             }
         }
     }
@@ -95,6 +107,9 @@ public class Game {
             }
             if (usAction == 0) {
                 state = GameState.DEALER_MOVE;
+            } else if (usAction == 2) {
+                state = GameState.STOP_GAME;
+                return;
             } else {
                 player.addCard(shoe.takeCard());
             }
@@ -151,5 +166,28 @@ public class Game {
         input.waitEnter();
 
         state = GameState.START_GAME;
+    }
+
+    public static RoundResult checkWinner(Player player, Dealer dealer) {
+        int playerScore = player.getNominal();
+        int dealerScore = dealer.getNominal();
+
+        if (playerScore > 21) {
+            return RoundResult.DEALER_WIN; // проигрыш игрока
+        }
+
+        if (dealerScore > 21) {
+            return RoundResult.PLAYER_WIN; // победа игрока
+        }
+
+        if (playerScore > dealerScore) {
+            return RoundResult.PLAYER_WIN;
+        }
+
+        if (playerScore < dealerScore) {
+            return RoundResult.DEALER_WIN;
+        }
+
+        return RoundResult.DRAW; // ничья
     }
 }

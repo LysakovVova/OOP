@@ -6,5 +6,6 @@ package ru.nsu.lysakov.game;
 public enum RoundResult {
     PLAYER_WIN,
     DEALER_WIN,
-    DRAW
+    DRAW,
+    NO_WIN
 }
