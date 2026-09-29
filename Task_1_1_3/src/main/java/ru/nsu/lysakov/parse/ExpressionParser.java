@@ -1,139 +1,157 @@
 package ru.nsu.lysakov.parse;
 
-import ru.nsu.lysakov.base.*;
+import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
+import ru.nsu.lysakov.base.Variable;
+import ru.nsu.lysakov.operation.Operation;
 
-import java.util.InputMismatchException;
-
+/**
+ * Класс для преобразования строки с математическим выражением
+ * в дерево объектов {@link Expression}.
+ */
 public class ExpressionParser {
 
-    private Expression expr;
-    private String Sexpr;
+    private String stringExpr;
     private int ind;
 
+    /**
+     * Создаёт новый парсер математических выражений.
+     */
     public ExpressionParser() {
-        expr = null;
-        Sexpr = "";
+        stringExpr = "";
         ind = 0;
     }
 
-    public Expression parse (String expr) {
+    /**
+     * Преобразует строку с математическим выражением
+     * в объект {@link Expression}.
+     *
+     * @param expression строковое математическое выражение
+     * @return дерево математического выражения
+     */
+    public Expression parse(String expression) {
         ind = 0;
-        expr = expr.replace(" ", "");
-        Sexpr = expr + " ";
-        while (true) {
-            this.expr = parseExpr(1);
-            if (ind == expr.length()) {
-                break;
-            }
-        }
-        return this.expr;
+        expression = expression.replace(" ", "");
+        stringExpr = expression + " ";
+
+        return parseExpr(1);
     }
 
-    private boolean isNoNumberAndVariable(char x) {
-        if (x == '(' ||
-            x == ')' ||
-            x == '+' ||
-            x == '-' ||
-            x == '*' ||
-            x == '/' ||
-            x == ' ') {
-            return false;
-        }
-        return true;
-    }
-    private boolean isOp(char x) {
-        if (x == '+' ||
-            x == '-' ||
-            x == '*' ||
-            x == '/') {
-            return true;
-        }
-        return false;
-    }
-    private int getPrioOp(char x) {
-        if (x == '+') {
-            return 1;
-        }
-        if (x == '-') {
-            return 1;
-        }
-        if (x == '*') {
-            return 2;
-        }
-        if (x == '/') {
-            return 2;
-        }
-        return 1;
+    /**
+     * Проверяет, может ли символ входить в число или имя переменной.
+     *
+     * @param symbol проверяемый символ
+     * @return {@code true}, если символ может входить в число
+     *         или имя переменной, иначе {@code false}
+     */
+    private boolean isNumberOrVariableSymbol(char symbol) {
+        return symbol != '('
+                && symbol != ')'
+                && Operation.findBinary(symbol) == null
+                && symbol != Operation.NEG.getSymbol()
+                && symbol != ' ';
     }
 
-    private Expression parseNumber() {
-        String val = "";
-        boolean neg = false;
-        if (Sexpr.charAt(ind) == '-') {
-            ind++;
-            neg = true;
-        }
-        boolean flag = false;
-        while (isNoNumberAndVariable(Sexpr.charAt(ind))) {
-            val += Sexpr.charAt(ind);
-            if (Sexpr.charAt(ind) == '.') {
-                if (flag) {
+    /**
+     * Разбирает число или переменную.
+     *
+     * @return полученное выражение
+     */
+    private Expression parseNumberOrVariable() {
+        StringBuilder value = new StringBuilder();
+        boolean hasPoint = false;
+
+        while (isNumberOrVariableSymbol(stringExpr.charAt(ind))) {
+            char symbol = stringExpr.charAt(ind);
+
+            if (symbol == '.') {
+                if (hasPoint) {
                     return null;
-                } else{
-                    flag = true;
                 }
+
+                hasPoint = true;
             }
+
+            value.append(symbol);
             ind++;
         }
-        Double number;
+
+        String stringValue = value.toString();
+
         try {
-            number = Double.parseDouble(val);
-            if (neg) {
-                number = -number;
-            }
-            return new Number(number);
-        } catch (NumberFormatException  e) {
-            if (neg) {
-                return new Neg(new Variable(val));
-            } else {
-                return new Variable(val);
-            }
+            return new Number(Double.parseDouble(stringValue));
+        } catch (NumberFormatException exception) {
+            return new Variable(stringValue);
         }
     }
 
+    /**
+     * Разбирает первичное выражение.
+     *
+     * <p>Первичным выражением является число, переменная,
+     * выражение в скобках или унарное отрицание.
+     *
+     * @return разобранное выражение
+     */
     private Expression parsePrimary() {
-        if (Sexpr.charAt(ind) == '(') {
+        char symbol = stringExpr.charAt(ind);
+
+        if (symbol == Operation.NEG.getSymbol()) {
             ind++;
-            Expression val = parseExpr(1);
-            if (Sexpr.charAt(ind) == ')') {
+
+            Expression value = parsePrimary();
+
+            return Operation.NEG.createUnary(value);
+        }
+
+        if (symbol == '(') {
+            ind++;
+
+            Expression value = parseExpr(1);
+
+            if (stringExpr.charAt(ind) == ')') {
                 ind++;
             }
-            return val;
+
+            return value;
         }
-        return parseNumber();
+
+        return parseNumberOrVariable();
     }
 
-    private Expression parseExpr(int minPrio) {
+    /**
+     * Разбирает выражение с учётом приоритетов операций.
+     *
+     * @param minPriority минимальный допустимый приоритет операции
+     * @return разобранное выражение
+     */
+    private Expression parseExpr(int minPriority) {
         Expression lhs = parsePrimary();
+
         if (lhs == null) {
             return null;
         }
 
         while (true) {
-            char op = Sexpr.charAt(ind);
-            if (!isOp(op)) {break;}
+            char symbol = stringExpr.charAt(ind);
 
-            int prio = getPrioOp(op);
-            if (prio < minPrio) {break;}
+            Operation operation = Operation.findBinary(symbol);
+
+            if (operation == null) {
+                break;
+            }
+
+            int priority = operation.getPriority();
+
+            if (priority < minPriority) {
+                break;
+            }
 
             ind++;
-            Expression rhs = parseExpr(prio + 1);
 
-            if (op == '+') {lhs = new Add(lhs, rhs);}
-            if (op == '-') {lhs = new Sub(lhs, rhs);}
-            if (op == '*') {lhs = new Mul(lhs, rhs);}
-            if (op == '/') {lhs = new Div(lhs, rhs);}
+            Expression rhs = parseExpr(priority + 1);
+
+            lhs = operation.createBinary(lhs, rhs);
         }
 
         return lhs;
