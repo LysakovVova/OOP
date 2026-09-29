@@ -131,9 +131,11 @@ public enum Operation {
     }
 
     /**
-     * Проверяет: является ли символ операцией, если да, то возвращает операцию.
-     * @param symbol
-     * @return Возвращает операцию по символу
+     * Проверяет, является ли символ бинарной операцией.
+     *
+     * @param symbol символ операции
+     * @return операция, соответствующая символу, или {@code null},
+     *         если операция не найдена
      */
     public static Operation findBinary(char symbol) {
         for (Operation operation : values()) {

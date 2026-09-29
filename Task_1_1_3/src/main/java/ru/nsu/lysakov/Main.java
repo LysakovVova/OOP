@@ -4,24 +4,31 @@ package ru.nsu.lysakov;
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.parse.ExpressionParser;
 
-
+/**
+ * Главный класс программы.
+ */
 public class Main {
 
+    /**
+     * Точка входа в программу.
+     *
+     * @param args аргументы командной строки
+     */
     public static void main(String[] args) {
         ExpressionParser parser = new ExpressionParser();
 
-        String listExpr[] = {
-          "3 * X",
-          "X * 3",
-          "(5 + 2) / 2",
-          "(5 + 2) / X",
-          "(5 + 2) / (3 + 2)",
-          "(2 * X) / (X * 3)",
-          "(2 * X) * (3 * X)",
-          "(5 + 3) ^ (2 + 4)",
-          "(X + 2)^3",
-          "X * X * X * X * X * 3 * 6 * 3",
-          "0 + 0 + 1 * 0"
+        String[] listExpr = {
+            "3 * X",
+            "X * 3",
+            "(5 + 2) / 2",
+            "(5 + 2) / X",
+            "(5 + 2) / (3 + 2)",
+            "(2 * X) / (X * 3)",
+            "(2 * X) * (3 * X)",
+            "(5 + 3) ^ (2 + 4)",
+            "(X + 2)^3",
+            "X * X * X * X * X * 3 * 6 * 3",
+            "0 + 0 + 1 * 0"
         };
         Expression expr;
         Expression d;
