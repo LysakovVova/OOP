@@ -2,6 +2,7 @@ package ru.nsu.lysakov.binaryop;
 
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
+import ru.nsu.lysakov.oneop.Neg;
 
 /**
  * Класс, представляющий операцию сложения двух выражений.
@@ -66,6 +67,10 @@ public class Add extends BinaryExpression {
         if (leftAns instanceof Number leftNumber
                 && leftNumber.evaluate("") == 0) {
             return rightAns;
+        }
+
+        if (rightAns instanceof Neg negLeft) {
+            return new Sub (leftAns, negLeft.value);
         }
 
         return new Add(leftAns, rightAns);
