@@ -49,10 +49,6 @@ public class Neg extends FirstExpression {
     public Expression simplify() {
         Expression ans = value.simplify();
 
-        if (ans instanceof Number number) {
-            return new Number(-number.evaluate(""));
-        }
-
         if (ans instanceof Neg neg) {
             return neg.value;
         }

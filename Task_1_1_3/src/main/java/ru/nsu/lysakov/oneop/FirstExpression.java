@@ -9,7 +9,7 @@ import ru.nsu.lysakov.base.Expression;
  */
 public abstract class FirstExpression extends Expression {
 
-    protected Expression value;
+    public Expression value;
 
     /**
      * Создаёт унарное выражение с заданным операндом.
