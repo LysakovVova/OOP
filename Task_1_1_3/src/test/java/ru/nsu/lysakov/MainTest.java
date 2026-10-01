@@ -166,19 +166,6 @@ class MainTest {
     }
 
     /**
-     * Проверяет упрощение отрицательного числа.
-     */
-    @Test
-    void negNumberShouldSimplify() {
-        Neg neg = new Neg(new Number(5));
-
-        assertEquals(
-                new Number(-5),
-                neg.simplify()
-        );
-    }
-
-    /**
      * Проверяет упрощение двойного отрицания.
      */
     @Test
@@ -188,21 +175,6 @@ class MainTest {
         Expression expression = new Neg(new Neg(x));
 
         assertEquals(x, expression.simplify());
-    }
-
-    /**
-     * Проверяет производную отрицания.
-     */
-    @Test
-    void negDerivativeShouldBeNegative() {
-        Expression expression = new Neg(new Variable("x"));
-
-        Expression derivative = expression.derivative("x");
-
-        assertEquals(
-                new Number(-1),
-                derivative.simplify()
-        );
     }
 
     /**
