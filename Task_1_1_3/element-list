@@ -1,6 +1,7 @@
 ru.nsu.lysakov
 ru.nsu.lysakov.base
 ru.nsu.lysakov.binaryop
+ru.nsu.lysakov.exception
 ru.nsu.lysakov.oneop
 ru.nsu.lysakov.operation
 ru.nsu.lysakov.parse
