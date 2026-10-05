@@ -2,6 +2,7 @@ package ru.nsu.lysakov.binaryop;
 
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 
 /**
@@ -79,17 +80,17 @@ public class Div extends BinaryExpression {
         if (leftAns instanceof Number leftNumber
                 && rightAns instanceof Number rightNumber) {
 
-            if (rightNumber.evaluate("") == 0) {
+            if (rightNumber.getValue() == 0) {
                 return null;
             }
 
             return new Number(
-                    leftNumber.evaluate("") / rightNumber.evaluate("")
+                    leftNumber.getValue() / rightNumber.getValue()
             );
         }
 
         if (rightAns instanceof Number rightNumber
-                && rightNumber.evaluate("") == 1) {
+                && rightNumber.getValue() == 1) {
             return leftAns;
         }
 
@@ -105,7 +106,7 @@ public class Div extends BinaryExpression {
      *         или происходит деление на ноль
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws ExpressionException {
         Double leftAns = left.evaluate(signification);
         Double rightAns = right.evaluate(signification);
 

@@ -2,6 +2,7 @@ package ru.nsu.lysakov.oneop;
 
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 
 /**
@@ -76,7 +77,7 @@ public class Neg extends FirstExpression {
      *         или {@code null}, если значение вычислить невозможно
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws ExpressionException {
         Double val = value.evaluate(signification);
 
         if (val == null) {

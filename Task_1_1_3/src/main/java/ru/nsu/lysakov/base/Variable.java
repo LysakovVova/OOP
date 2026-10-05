@@ -1,5 +1,6 @@
 package ru.nsu.lysakov.base;
 
+import ru.nsu.lysakov.exception.VariableException;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 
 /**
@@ -112,7 +113,7 @@ public class Variable extends Expression {
      * @return значение переменной
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws VariableException {
         int pos = signification.indexOf(name);
 
         if (pos == -1) {
@@ -137,7 +138,14 @@ public class Variable extends Expression {
 
         val = val.trim();
 
-        value = Double.parseDouble(val);
+        try {
+            value = Double.parseDouble(val);
+        } catch (NumberFormatException exception) {
+            value = null;
+            throw new VariableException(
+                    "Некорректное значение переменной " + name + " : " + val
+            );
+        }
         return value;
     }
 

@@ -1,5 +1,7 @@
 package ru.nsu.lysakov.base;
 
+import ru.nsu.lysakov.exception.ExpressionException;
+
 /**
  * Абстрактный базовый класс для математических выражений.
  *
@@ -15,7 +17,7 @@ public abstract class Expression {
      * @param signification строка со значениями переменных
      * @return вычисленное значение выражения
      */
-    public abstract Double evaluate(String signification);
+    public abstract Double evaluate(String signification) throws ExpressionException;
 
     /**
      * Возвращает приоритет операции выражения.

@@ -3,6 +3,7 @@ package ru.nsu.lysakov.binaryop;
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
 import ru.nsu.lysakov.base.Variable;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 
 /**
@@ -52,27 +53,27 @@ public class Mul extends BinaryExpression {
         if (leftAns instanceof Number leftNumber
                 && rightAns instanceof Number rightNumber) {
             return new Number(
-                    leftNumber.evaluate("") * rightNumber.evaluate("")
+                    leftNumber.getValue() * rightNumber.getValue()
             );
         }
 
         if (rightAns instanceof Number rightNumber
-                && rightNumber.evaluate("") == 0) {
+                && rightNumber.getValue() == 0) {
             return new Number(0);
         }
 
         if (leftAns instanceof Number leftNumber
-                && leftNumber.evaluate("") == 0) {
+                && leftNumber.getValue() == 0) {
             return new Number(0);
         }
 
         if (rightAns instanceof Number rightNumber
-                && rightNumber.evaluate("") == 1) {
+                && rightNumber.getValue() == 1) {
             return leftAns;
         }
 
         if (leftAns instanceof Number leftNumber
-                && leftNumber.evaluate("") == 1) {
+                && leftNumber.getValue() == 1) {
             return rightAns;
         }
 
@@ -117,7 +118,7 @@ public class Mul extends BinaryExpression {
      *         если значение одного из них вычислить невозможно
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws ExpressionException {
         Double leftAns = left.evaluate(signification);
         Double rightAns = right.evaluate(signification);
 

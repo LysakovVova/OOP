@@ -2,6 +2,7 @@ package ru.nsu.lysakov.binaryop;
 
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.oneop.Neg;
 
 /**
@@ -54,18 +55,18 @@ public class Add extends BinaryExpression {
         if (leftAns instanceof Number leftNumber
                 && rightAns instanceof Number rightNumber) {
             return new Number(
-                    leftNumber.evaluate("")
-                            + rightNumber.evaluate("")
+                    leftNumber.getValue()
+                            + rightNumber.getValue()
             );
         }
 
         if (rightAns instanceof Number rightNumber
-                && rightNumber.evaluate("") == 0) {
+                && rightNumber.getValue() == 0) {
             return leftAns;
         }
 
         if (leftAns instanceof Number leftNumber
-                && leftNumber.evaluate("") == 0) {
+                && leftNumber.getValue() == 0) {
             return rightAns;
         }
 
@@ -105,7 +106,7 @@ public class Add extends BinaryExpression {
      *         если значение одного из них вычислить невозможно
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws ExpressionException {
         Double leftAns = left.evaluate(signification);
         Double rightAns = right.evaluate(signification);
 

@@ -1,5 +1,6 @@
 package ru.nsu.lysakov.base;
 
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 
 /**
@@ -79,7 +80,7 @@ public class Number extends Expression {
      * @return значение числа
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws ExpressionException {
         return value;
     }
 

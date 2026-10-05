@@ -3,6 +3,7 @@ package ru.nsu.lysakov.binaryop;
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
 import ru.nsu.lysakov.base.Variable;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 
 /**
@@ -57,22 +58,22 @@ public class Pow extends BinaryExpression {
         }
 
         if (ansRight instanceof Number number
-                && number.evaluate("") == 0) {
+                && number.getValue() == 0) {
             return new Number(1);
         }
 
         if (ansRight instanceof Number number
-                && number.evaluate("") == 1) {
+                && number.getValue() == 1) {
             return ansLeft;
         }
 
         if (ansLeft instanceof Number number
-                && number.evaluate("") == 1) {
+                && number.getValue() == 1) {
             return new Number(1);
         }
 
         if (ansLeft instanceof Number number
-                && number.evaluate("") == 0) {
+                && number.getValue() == 0) {
             return new Number(0);
         }
 
@@ -121,7 +122,7 @@ public class Pow extends BinaryExpression {
      *         если один из операндов вычислить невозможно
      */
     @Override
-    public Double evaluate(String signification) {
+    public Double evaluate(String signification) throws ExpressionException {
         Double ansLeft = left.evaluate(signification);
         Double ansRight = right.evaluate(signification);
 

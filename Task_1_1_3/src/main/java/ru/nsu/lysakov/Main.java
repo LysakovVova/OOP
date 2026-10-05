@@ -2,6 +2,7 @@ package ru.nsu.lysakov;
 
 
 import ru.nsu.lysakov.base.Expression;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.parse.ExpressionParser;
 
 /**
@@ -27,7 +28,7 @@ public class Main {
             "(2 * X) * (3 * X)",
             "(5 + 3) ^ (2 + 4)",
             "(X + 2)^3",
-            "X * X * X * X * X * 3 * 6 * 3",
+            "X * X * X * X * X * 3 * 6 * 3 +3 * 6 + 4",
             "0 + 0 + 1 * 0",
             "1 + 1 + X + -(4 + 2)",
             "1 + (5 * 5)",
@@ -50,9 +51,15 @@ public class Main {
                 System.out.println(d);
             }
 
-            f = expr.evaluate("");
-            System.out.println(f);
-            System.out.print("\n");
+
+            try {
+                f = expr.evaluate("X = 12xa;");
+                System.out.println(f);
+                System.out.print("\n");
+            }  catch (ExpressionException e) {
+                System.out.println(e.getMessage());
+                System.out.print("\n");
+            }
         }
 
     }
