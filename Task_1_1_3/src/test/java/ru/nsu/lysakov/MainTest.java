@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
 import ru.nsu.lysakov.base.Variable;
@@ -28,7 +28,7 @@ class MainTest {
      * Проверяет равенство чисел.
      */
     @Test
-    void numbersShouldBeEqual() {
+    void numbersShouldBeEqual() throws ExpressionException {
         Number first = new Number(5);
         Number second = new Number(5);
         Number third = new Number(10);
@@ -41,7 +41,7 @@ class MainTest {
      * Проверяет упрощение числа.
      */
     @Test
-    void numberShouldSimplifyToItself() {
+    void numberShouldSimplifyToItself() throws ExpressionException {
         Number number = new Number(5);
 
         assertEquals(number, number.simplify());
@@ -51,7 +51,7 @@ class MainTest {
      * Проверяет производную числа.
      */
     @Test
-    void numberDerivativeShouldBeZero() {
+    void numberDerivativeShouldBeZero() throws ExpressionException {
         Number number = new Number(10);
 
         assertEquals(new Number(0), number.derivative("x"));
@@ -61,7 +61,7 @@ class MainTest {
      * Проверяет вычисление переменной с заданным значением.
      */
     @Test
-    void variableShouldEvaluateStoredValue() {
+    void variableShouldEvaluateStoredValue() throws ExpressionException {
         Variable variable = new Variable("x", 5);
 
         assertEquals(5.0, variable.evaluate(""));
@@ -71,7 +71,7 @@ class MainTest {
      * Проверяет изменение значения переменной.
      */
     @Test
-    void variableShouldSetValue() {
+    void variableShouldSetValue() throws ExpressionException {
         Variable variable = new Variable("x");
 
         variable.setValue(15);
@@ -83,7 +83,7 @@ class MainTest {
      * Проверяет получение значения переменной из строки.
      */
     @Test
-    void variableShouldEvaluateFromSignification() {
+    void variableShouldEvaluateFromSignification() throws ExpressionException {
         Variable variable = new Variable("x");
 
         assertEquals(
@@ -96,7 +96,7 @@ class MainTest {
      * Проверяет получение нескольких значений переменных из строки.
      */
     @Test
-    void variablesShouldEvaluateFromSignification() {
+    void variablesShouldEvaluateFromSignification() throws ExpressionException {
         Variable x = new Variable("x");
         Variable y = new Variable("y");
 
@@ -110,7 +110,7 @@ class MainTest {
      * Проверяет случай отсутствия значения переменной.
      */
     @Test
-    void variableWithoutValueShouldReturnNull() {
+    void variableWithoutValueShouldReturnNull() throws ExpressionException {
         Variable variable = new Variable("x");
 
         assertNull(variable.evaluate(""));
@@ -120,7 +120,7 @@ class MainTest {
      * Проверяет производную переменной по самой себе.
      */
     @Test
-    void variableDerivativeByItselfShouldBeOne() {
+    void variableDerivativeByItselfShouldBeOne() throws ExpressionException {
         Variable variable = new Variable("x");
 
         assertEquals(
@@ -133,7 +133,7 @@ class MainTest {
      * Проверяет производную переменной по другой переменной.
      */
     @Test
-    void variableDerivativeByAnotherVariableShouldBeZero() {
+    void variableDerivativeByAnotherVariableShouldBeZero() throws ExpressionException {
         Variable variable = new Variable("x");
 
         assertEquals(
@@ -146,7 +146,7 @@ class MainTest {
      * Проверяет равенство переменных.
      */
     @Test
-    void variablesWithSameNameShouldBeEqual() {
+    void variablesWithSameNameShouldBeEqual() throws ExpressionException {
         Variable first = new Variable("x");
         Variable second = new Variable("x");
         Variable third = new Variable("y");
@@ -159,7 +159,7 @@ class MainTest {
      * Проверяет операцию отрицания.
      */
     @Test
-    void negShouldEvaluateCorrectly() {
+    void negShouldEvaluateCorrectly() throws ExpressionException {
         Neg neg = new Neg(new Number(5));
 
         assertEquals(-5.0, neg.evaluate(""));
@@ -169,7 +169,7 @@ class MainTest {
      * Проверяет упрощение двойного отрицания.
      */
     @Test
-    void doubleNegShouldSimplify() {
+    void doubleNegShouldSimplify() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Neg(new Neg(x));
@@ -181,7 +181,7 @@ class MainTest {
      * Проверяет строковое представление отрицания.
      */
     @Test
-    void negShouldUseParenthesesWhenNeeded() {
+    void negShouldUseParenthesesWhenNeeded() throws ExpressionException {
         Expression expression = new Neg(
                 new Add(
                         new Variable("x"),
@@ -196,7 +196,7 @@ class MainTest {
      * Проверяет вычисление суммы.
      */
     @Test
-    void addShouldEvaluateCorrectly() {
+    void addShouldEvaluateCorrectly() throws ExpressionException {
         Expression expression = new Add(
                 new Number(2),
                 new Number(3)
@@ -209,7 +209,7 @@ class MainTest {
      * Проверяет упрощение суммы чисел.
      */
     @Test
-    void addNumbersShouldSimplify() {
+    void addNumbersShouldSimplify() throws ExpressionException {
         Expression expression = new Add(
                 new Number(2),
                 new Number(3)
@@ -225,7 +225,7 @@ class MainTest {
      * Проверяет сложение выражения с нулём.
      */
     @Test
-    void addZeroRightShouldSimplify() {
+    void addZeroRightShouldSimplify() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Add(
@@ -240,7 +240,7 @@ class MainTest {
      * Проверяет упрощение суммы одинаковых выражений.
      */
     @Test
-    void addSameExpressionsShouldSimplify() {
+    void addSameExpressionsShouldSimplify() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Add(x, x);
@@ -255,7 +255,7 @@ class MainTest {
      * Проверяет производную суммы.
      */
     @Test
-    void addDerivativeShouldBeCorrect() {
+    void addDerivativeShouldBeCorrect() throws ExpressionException {
         Expression expression = new Add(
                 new Variable("x"),
                 new Number(5)
@@ -271,7 +271,7 @@ class MainTest {
      * Проверяет вычисление разности.
      */
     @Test
-    void subShouldEvaluateCorrectly() {
+    void subShouldEvaluateCorrectly() throws ExpressionException {
         Expression expression = new Sub(
                 new Number(10),
                 new Number(3)
@@ -284,7 +284,7 @@ class MainTest {
      * Проверяет упрощение одинаковых выражений при вычитании.
      */
     @Test
-    void subSameExpressionsShouldBeZero() {
+    void subSameExpressionsShouldBeZero() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Sub(x, x);
@@ -299,7 +299,7 @@ class MainTest {
      * Проверяет вычитание нуля.
      */
     @Test
-    void subZeroShouldSimplify() {
+    void subZeroShouldSimplify() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Sub(
@@ -314,7 +314,7 @@ class MainTest {
      * Проверяет вычитание выражения из нуля.
      */
     @Test
-    void zeroSubExpressionShouldBecomeNeg() {
+    void zeroSubExpressionShouldBecomeNeg() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Sub(
@@ -332,7 +332,7 @@ class MainTest {
      * Проверяет производную разности.
      */
     @Test
-    void subDerivativeShouldBeCorrect() {
+    void subDerivativeShouldBeCorrect() throws ExpressionException {
         Expression expression = new Sub(
                 new Variable("x"),
                 new Number(5)
@@ -348,7 +348,7 @@ class MainTest {
      * Проверяет вычисление произведения.
      */
     @Test
-    void mulShouldEvaluateCorrectly() {
+    void mulShouldEvaluateCorrectly() throws ExpressionException {
         Expression expression = new Mul(
                 new Number(4),
                 new Number(5)
@@ -361,7 +361,7 @@ class MainTest {
      * Проверяет упрощение произведения чисел.
      */
     @Test
-    void mulNumbersShouldSimplify() {
+    void mulNumbersShouldSimplify() throws ExpressionException {
         Expression expression = new Mul(
                 new Number(4),
                 new Number(5)
@@ -377,7 +377,7 @@ class MainTest {
      * Проверяет умножение нуля на выражение.
      */
     @Test
-    void zeroMulExpressionShouldBeZero() {
+    void zeroMulExpressionShouldBeZero() throws ExpressionException {
         Expression expression = new Mul(
                 new Number(0),
                 new Variable("x")
@@ -393,7 +393,7 @@ class MainTest {
      * Проверяет умножение на единицу.
      */
     @Test
-    void mulByOneShouldSimplify() {
+    void mulByOneShouldSimplify() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Mul(
@@ -408,7 +408,7 @@ class MainTest {
      * Проверяет перестановку числа перед переменной.
      */
     @Test
-    void mulShouldPutNumberBeforeVariable() {
+    void mulShouldPutNumberBeforeVariable() throws ExpressionException {
         Expression expression = new Mul(
                 new Variable("x"),
                 new Number(2)
@@ -424,7 +424,7 @@ class MainTest {
      * Проверяет правило производной произведения.
      */
     @Test
-    void mulDerivativeShouldBeCorrect() {
+    void mulDerivativeShouldBeCorrect() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Mul(x, x);
@@ -438,7 +438,7 @@ class MainTest {
      * Проверяет вычисление частного.
      */
     @Test
-    void divShouldEvaluateCorrectly() {
+    void divShouldEvaluateCorrectly() throws ExpressionException {
         Expression expression = new Div(
                 new Number(10),
                 new Number(2)
@@ -451,7 +451,7 @@ class MainTest {
      * Проверяет деление на ноль.
      */
     @Test
-    void divisionByZeroShouldReturnNull() {
+    void divisionByZeroShouldReturnNull() throws ExpressionException {
         Expression expression = new Div(
                 new Number(10),
                 new Number(0)
@@ -464,7 +464,7 @@ class MainTest {
      * Проверяет упрощение числового деления.
      */
     @Test
-    void divNumbersShouldSimplify() {
+    void divNumbersShouldSimplify() throws ExpressionException {
         Expression expression = new Div(
                 new Number(10),
                 new Number(2)
@@ -480,7 +480,7 @@ class MainTest {
      * Проверяет деление на единицу.
      */
     @Test
-    void divByOneShouldSimplify() {
+    void divByOneShouldSimplify() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Div(
@@ -495,7 +495,7 @@ class MainTest {
      * Проверяет правило производной частного.
      */
     @Test
-    void divDerivativeShouldBeCorrect() {
+    void divDerivativeShouldBeCorrect() throws ExpressionException {
         Expression expression = new Div(
                 new Variable("x"),
                 new Number(2)
@@ -510,7 +510,7 @@ class MainTest {
      * Проверяет скобки при делении суммы.
      */
     @Test
-    void divShouldUseParentheses() {
+    void divShouldUseParentheses() throws ExpressionException {
         Expression expression = new Div(
                 new Add(
                         new Variable("x"),
@@ -529,7 +529,7 @@ class MainTest {
      * Проверяет вычисление степени.
      */
     @Test
-    void powShouldEvaluateCorrectly() {
+    void powShouldEvaluateCorrectly() throws ExpressionException {
         Expression expression = new Pow(
                 new Number(2),
                 new Number(3)
@@ -542,7 +542,7 @@ class MainTest {
      * Проверяет упрощение числовой степени.
      */
     @Test
-    void powNumbersShouldSimplify() {
+    void powNumbersShouldSimplify() throws ExpressionException {
         Expression expression = new Pow(
                 new Number(2),
                 new Number(3)
@@ -558,7 +558,7 @@ class MainTest {
      * Проверяет нулевую степень.
      */
     @Test
-    void powZeroShouldBeOne() {
+    void powZeroShouldBeOne() throws ExpressionException {
         Expression expression = new Pow(
                 new Variable("x"),
                 new Number(0)
@@ -574,7 +574,7 @@ class MainTest {
      * Проверяет первую степень.
      */
     @Test
-    void powOneShouldReturnBase() {
+    void powOneShouldReturnBase() throws ExpressionException {
         Variable x = new Variable("x");
 
         Expression expression = new Pow(
@@ -589,7 +589,7 @@ class MainTest {
      * Проверяет единицу в основании степени.
      */
     @Test
-    void onePowExpressionShouldBeOne() {
+    void onePowExpressionShouldBeOne() throws ExpressionException {
         Expression expression = new Pow(
                 new Number(1),
                 new Variable("x")
@@ -605,7 +605,7 @@ class MainTest {
      * Проверяет производную степени.
      */
     @Test
-    void powDerivativeShouldBeCorrect() {
+    void powDerivativeShouldBeCorrect() throws ExpressionException {
         Expression expression = new Pow(
                 new Variable("x"),
                 new Number(3)
@@ -623,7 +623,7 @@ class MainTest {
      * Проверяет равенство операций сложения.
      */
     @Test
-    void addExpressionsShouldBeEqual() {
+    void addExpressionsShouldBeEqual() throws ExpressionException {
         Expression first = new Add(
                 new Variable("x"),
                 new Number(2)
@@ -641,7 +641,7 @@ class MainTest {
      * Проверяет неравенство различных операций.
      */
     @Test
-    void differentExpressionsShouldNotBeEqual() {
+    void differentExpressionsShouldNotBeEqual() throws ExpressionException {
         Expression add = new Add(
                 new Variable("x"),
                 new Number(2)
@@ -659,7 +659,7 @@ class MainTest {
      * Проверяет приоритет сложения и вычитания.
      */
     @Test
-    void addSubPriorityShouldBeCorrect() {
+    void addSubPriorityShouldBeCorrect() throws ExpressionException {
         assertEquals(
                 ExpressionPriority.ADD_SUB.getValue(),
                 new Add(new Number(1), new Number(2)).getPriority()
@@ -675,7 +675,7 @@ class MainTest {
      * Проверяет приоритет умножения и деления.
      */
     @Test
-    void mulDivPriorityShouldBeCorrect() {
+    void mulDivPriorityShouldBeCorrect() throws ExpressionException {
         assertEquals(
                 ExpressionPriority.MUL_DIV.getValue(),
                 new Mul(new Number(1), new Number(2)).getPriority()
@@ -691,7 +691,7 @@ class MainTest {
      * Проверяет приоритет степени.
      */
     @Test
-    void powPriorityShouldBeCorrect() {
+    void powPriorityShouldBeCorrect() throws ExpressionException {
         assertEquals(
                 ExpressionPriority.POW.getValue(),
                 new Pow(new Number(1), new Number(2)).getPriority()
@@ -702,7 +702,7 @@ class MainTest {
      * Проверяет приоритет отрицания.
      */
     @Test
-    void negPriorityShouldBeCorrect() {
+    void negPriorityShouldBeCorrect() throws ExpressionException {
         assertEquals(
                 ExpressionPriority.NEG.getValue(),
                 new Neg(new Number(1)).getPriority()
@@ -713,7 +713,7 @@ class MainTest {
      * Проверяет поиск бинарной операции по символу.
      */
     @Test
-    void shouldFindBinaryOperationBySymbol() {
+    void shouldFindBinaryOperationBySymbol() throws ExpressionException {
         assertEquals(Operation.ADD, Operation.findBinary('+'));
         assertEquals(Operation.SUB, Operation.findBinary('-'));
         assertEquals(Operation.MUL, Operation.findBinary('*'));
@@ -725,7 +725,7 @@ class MainTest {
      * Проверяет отсутствие операции для неизвестного символа.
      */
     @Test
-    void unknownOperationShouldReturnNull() {
+    void unknownOperationShouldReturnNull() throws ExpressionException {
         assertNull(Operation.findBinary('%'));
     }
 
@@ -733,7 +733,7 @@ class MainTest {
      * Проверяет создание операции через enum.
      */
     @Test
-    void operationShouldCreateBinaryExpression() {
+    void operationShouldCreateBinaryExpression() throws ExpressionException {
         Expression expression = Operation.ADD.createBinary(
                 new Number(2),
                 new Number(3)
@@ -747,7 +747,7 @@ class MainTest {
      * Проверяет разбор числа парсером.
      */
     @Test
-    void parserShouldParseNumber() {
+    void parserShouldParseNumber() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("5");
@@ -759,7 +759,7 @@ class MainTest {
      * Проверяет разбор переменной парсером.
      */
     @Test
-    void parserShouldParseVariable() {
+    void parserShouldParseVariable() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("x");
@@ -771,7 +771,7 @@ class MainTest {
      * Проверяет разбор сложения.
      */
     @Test
-    void parserShouldParseAddition() {
+    void parserShouldParseAddition() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("2 + 3");
@@ -783,7 +783,7 @@ class MainTest {
      * Проверяет приоритет умножения над сложением.
      */
     @Test
-    void parserShouldRespectOperationPriority() {
+    void parserShouldRespectOperationPriority() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("2 + 3 * 4");
@@ -795,7 +795,7 @@ class MainTest {
      * Проверяет работу скобок.
      */
     @Test
-    void parserShouldParseParentheses() {
+    void parserShouldParseParentheses() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("(2 + 3) * 4");
@@ -807,7 +807,7 @@ class MainTest {
      * Проверяет разбор унарного минуса.
      */
     @Test
-    void parserShouldParseNegation() {
+    void parserShouldParseNegation() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("-x");
@@ -819,7 +819,7 @@ class MainTest {
      * Проверяет отрицание выражения в скобках.
      */
     @Test
-    void parserShouldParseNegatedParentheses() {
+    void parserShouldParseNegatedParentheses() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("-(x + 2)");
@@ -831,7 +831,7 @@ class MainTest {
      * Проверяет отрицательную переменную после умножения.
      */
     @Test
-    void parserShouldParseNegationAfterOperation() {
+    void parserShouldParseNegationAfterOperation() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("2 * -x");
@@ -843,7 +843,7 @@ class MainTest {
      * Проверяет сложное математическое выражение.
      */
     @Test
-    void parserShouldParseComplexExpression() {
+    void parserShouldParseComplexExpression() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression =
@@ -859,7 +859,7 @@ class MainTest {
      * Проверяет выражение со степенью.
      */
     @Test
-    void parserShouldParsePower() {
+    void parserShouldParsePower() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("x^3");
@@ -874,7 +874,7 @@ class MainTest {
      * Проверяет производную выражения, полученного парсером.
      */
     @Test
-    void parsedExpressionDerivativeShouldBeCorrect() {
+    void parsedExpressionDerivativeShouldBeCorrect() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("x^2 + 3*x");
@@ -891,7 +891,7 @@ class MainTest {
      * Проверяет упрощение выражения, полученного парсером.
      */
     @Test
-    void parsedExpressionShouldSimplify() {
+    void parsedExpressionShouldSimplify() throws ExpressionException {
         ExpressionParser parser = new ExpressionParser();
 
         Expression expression = parser.parse("x + 0");
