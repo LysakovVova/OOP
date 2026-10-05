@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.base.Expression;
 import ru.nsu.lysakov.base.Number;
 import ru.nsu.lysakov.base.Variable;
@@ -15,6 +14,7 @@ import ru.nsu.lysakov.binaryop.Div;
 import ru.nsu.lysakov.binaryop.Mul;
 import ru.nsu.lysakov.binaryop.Pow;
 import ru.nsu.lysakov.binaryop.Sub;
+import ru.nsu.lysakov.exception.ExpressionException;
 import ru.nsu.lysakov.oneop.Neg;
 import ru.nsu.lysakov.operation.ExpressionPriority;
 import ru.nsu.lysakov.operation.Operation;

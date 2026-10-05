@@ -71,7 +71,7 @@ public class Add extends BinaryExpression {
         }
 
         if (rightAns instanceof Neg negLeft) {
-            return new Sub (leftAns, negLeft.value);
+            return new Sub(leftAns, negLeft.value);
         }
 
         return new Add(leftAns, rightAns);

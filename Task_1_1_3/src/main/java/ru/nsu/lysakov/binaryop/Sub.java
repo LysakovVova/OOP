@@ -69,7 +69,7 @@ public class Sub extends BinaryExpression {
         }
 
         if (rightAns instanceof Neg negLeft) {
-            return new Add (leftAns, negLeft.value);
+            return new Add(leftAns, negLeft.value);
         }
 
         return new Sub(leftAns, rightAns);
