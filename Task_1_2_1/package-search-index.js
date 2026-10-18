@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.lysakov"},{"l":"ru.nsu.lysakov.graph"},{"l":"ru.nsu.lysakov.sort"}];updateSearchResults();
