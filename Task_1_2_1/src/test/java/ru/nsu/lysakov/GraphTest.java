@@ -55,6 +55,28 @@ class GraphTest {
         }
     }
 
+    @Test
+    void equaltest() {
+        IncidenceMatrixGraph g1 = new IncidenceMatrixGraph();
+        AdjacencyListGraph g2 = new AdjacencyListGraph();
+
+        g1.addVertex(1);
+        g2.addVertex(1);
+        g1.addVertex(2);
+        g2.addVertex(2);
+        g1.addVertex(3);
+        g2.addVertex(3);
+
+       g1.addEdge(1, 2);
+       g1.addEdge(2, 3);
+
+       g2.addEdge(1, 2);
+       g2.addEdge(2, 3);
+
+        assertEquals(g1, g2);
+
+    }
+
     /**
      * Проверяет удаление ребра.
      */

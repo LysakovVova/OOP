@@ -1,7 +1,10 @@
 
 package ru.nsu.lysakov.graph;
 
+import ru.nsu.lysakov.sort.TopologicalSorter;
+
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,7 +13,6 @@ import java.util.Set;
  * Не зависит от способа внутреннего представления графа.
  */
 public interface Graph {
-
     /**
      * Добавляет вершину в граф.
      * Если вершина уже существует, граф не изменяется.
@@ -75,4 +77,16 @@ public interface Graph {
      * @throws IllegalArgumentException если данные графа некорректны
      */
     void readFromFile(String filename) throws IOException;
+
+
+    /**
+     * Выполняет топологическую сортировку заданным алгоритмом.
+     *
+     * @param sorter алгоритм топологической сортировки
+     * @return список вершин в топологическом порядке
+     * @throws IllegalStateException если граф содержит цикл
+     */
+    default List<Integer> sorted(TopologicalSorter sorter) {
+        return sorter.sort(this);
+    }
 }

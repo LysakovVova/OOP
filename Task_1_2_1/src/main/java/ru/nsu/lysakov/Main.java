@@ -32,6 +32,7 @@ public class Main {
         TopologicalSorter sorter = new DfsSorter();
 
         System.out.println(sorter.sort(graph));
+        System.out.println(graph.sorted(new DfsSorter()));
 
 
         try {

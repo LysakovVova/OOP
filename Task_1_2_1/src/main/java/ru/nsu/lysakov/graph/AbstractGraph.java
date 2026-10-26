@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import ru.nsu.lysakov.sort.TopologicalSorter;
+
 /**
  * Абстрактный класс ориентированного графа.
  * Содержит общие методы, не зависящие от способа хранения графа.
