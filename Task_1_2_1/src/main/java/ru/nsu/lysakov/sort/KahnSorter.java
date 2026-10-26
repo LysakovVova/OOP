@@ -25,7 +25,6 @@ public class KahnSorter implements TopologicalSorter {
     @Override
     public List<Integer> sort(Graph graph) {
         Map<Integer, Integer> inDegree = new HashMap<>();
-        List<Integer> result = new ArrayList<>();
         PriorityQueue<Integer> queue = new PriorityQueue<>();
 
         for (int vertex : graph.getVertices()) {
@@ -44,6 +43,7 @@ public class KahnSorter implements TopologicalSorter {
             }
         }
 
+        List<Integer> result = new ArrayList<>();
         while (!queue.isEmpty()) {
             int vertex = queue.poll();
             result.add(vertex);

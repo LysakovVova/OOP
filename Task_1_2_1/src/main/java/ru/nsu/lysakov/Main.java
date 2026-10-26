@@ -1,8 +1,8 @@
 package ru.nsu.lysakov;
 
 import java.io.IOException;
-import ru.nsu.lysakov.graph.IncidenceMatrixGraph;
 import ru.nsu.lysakov.graph.Graph;
+import ru.nsu.lysakov.graph.IncidenceMatrixGraph;
 import ru.nsu.lysakov.sort.DfsSorter;
 import ru.nsu.lysakov.sort.TopologicalSorter;
 
