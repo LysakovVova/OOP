@@ -4,6 +4,7 @@ import java.io.IOException;
 import ru.nsu.lysakov.graph.Graph;
 import ru.nsu.lysakov.graph.IncidenceMatrixGraph;
 import ru.nsu.lysakov.sort.DfsSorter;
+import ru.nsu.lysakov.sort.KahnSorter;
 import ru.nsu.lysakov.sort.TopologicalSorter;
 
 /**
@@ -33,6 +34,7 @@ public class Main {
 
         System.out.println(sorter.sort(graph));
         System.out.println(graph.sorted(new DfsSorter()));
+        System.out.println(graph.sorted(new KahnSorter()));
 
 
         try {

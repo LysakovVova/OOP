@@ -1,8 +1,6 @@
-
 package ru.nsu.lysakov.graph;
 
 import ru.nsu.lysakov.sort.TopologicalSorter;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
