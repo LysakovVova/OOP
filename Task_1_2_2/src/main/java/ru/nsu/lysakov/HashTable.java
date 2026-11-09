@@ -42,8 +42,8 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
     public V add(K key, V value) {
         Entry<K, V> entry = findEntry(key);
         if (entry != null) {
-            V oldValue = entry.value;
-            entry.value = value;
+            V oldValue = entry.getValue();
+            entry.setValue(value);
             modCount++;
             return oldValue;
         }
@@ -67,7 +67,7 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
      */
     public V get(K key) {
         Entry<K, V> entry = findEntry(key);
-        return entry == null ? null : entry.value;
+        return entry == null ? null : entry.getValue();
     }
 
     /**
@@ -84,8 +84,8 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
             throw new NoSuchElementException("Ключ не найден: " + key);
         }
 
-        V oldValue = entry.value;
-        entry.value = value;
+        V oldValue = entry.getValue();
+        entry.setValue(value);
         modCount++;
         return oldValue;
     }
@@ -112,11 +112,11 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
         Entry<K, V> previous = null;
 
         while (entry != null) {
-            if (Objects.equals(entry.key, key)) {
+            if (Objects.equals(entry.getKey(), key)) {
                 if (previous == null) {
-                    buckets[index] = entry.next;
+                    buckets[index] = entry.getNext();
                 } else {
-                    previous.next = entry.next;
+                    previous.setNext(entry.getNext());
                 }
 
                 size--;
@@ -124,11 +124,11 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
                 if (buckets.length > MIN_CAPACITY && size < buckets.length / 4) {
                     resize(buckets.length / 2);
                 }
-                return entry.value;
+                return entry.getValue();
             }
 
             previous = entry;
-            entry = entry.next;
+            entry = entry.getNext();
         }
         return null;
     }
@@ -142,7 +142,7 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
      */
     public boolean remove(K key, V value) {
         Entry<K, V> entry = findEntry(key);
-        if (entry == null || !Objects.equals(entry.value, value)) {
+        if (entry == null || !Objects.equals(entry.getValue(), value)) {
             return false;
         }
         remove(key);
@@ -194,10 +194,10 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
     private Entry<K, V> findEntry(Object key) {
         Entry<K, V> entry = buckets[index(key, buckets.length)];
         while (entry != null) {
-            if (Objects.equals(entry.key, key)) {
+            if (Objects.equals(entry.getKey(), key)) {
                 return entry;
             }
-            entry = entry.next;
+            entry = entry.getNext();
         }
         return null;
     }
@@ -212,9 +212,9 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
         for (Entry<K, V> bucket : buckets) {
             Entry<K, V> entry = bucket;
             while (entry != null) {
-                Entry<K, V> next = entry.next;
-                int index = index(entry.key, capacity);
-                entry.next = newBuckets[index];
+                Entry<K, V> next = entry.getNext();
+                int index = index(entry.getKey(), capacity);
+                entry.setNext(newBuckets[index]);
                 newBuckets[index] = entry;
                 entry = next;
             }
@@ -250,8 +250,8 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
             return false;
         }
         for (Entry<K, V> entry : this) {
-            Entry<?, ?> otherEntry = other.findEntry(entry.key);
-            if (otherEntry == null || !Objects.equals(entry.value, otherEntry.value)) {
+            Entry<?, ?> otherEntry = other.findEntry(entry.getKey());
+            if (otherEntry == null || !Objects.equals(entry.getValue(), otherEntry.getValue())) {
                 return false;
             }
         }
@@ -262,7 +262,7 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
     public int hashCode() {
         int hash = 0;
         for (Entry<K, V> entry : this) {
-            hash += Objects.hashCode(entry.key) ^ Objects.hashCode(entry.value);
+            hash += Objects.hashCode(entry.getKey()) ^ Objects.hashCode(entry.getValue());
         }
         return hash;
     }
@@ -274,7 +274,7 @@ public class HashTable<K, V> implements Iterable<Entry<K, V>> {
             if (result.length() > 1) {
                 result.append(", ");
             }
-            result.append(entry.key).append("=").append(entry.value);
+            result.append(entry.getKey()).append("=").append(entry.getValue());
         }
         return result.append("}").toString();
     }

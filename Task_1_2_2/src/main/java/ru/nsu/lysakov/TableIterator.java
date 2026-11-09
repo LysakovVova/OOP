@@ -57,7 +57,7 @@ class TableIterator<K, V> implements Iterator<Entry<K, V>> {
         }
 
         Entry<K, V> result = next;
-        next = next.next;
+        next = next.getNext();
         advanceBucket();
         return result;
     }
