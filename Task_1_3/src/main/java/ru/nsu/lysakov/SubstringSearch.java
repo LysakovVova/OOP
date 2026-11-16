@@ -42,23 +42,33 @@ public class SubstringSearch {
                 Path.of(filename), StandardCharsets.UTF_8)) {
             long position = 0;
             int matched = 0;
-            int symbol;
-            while ((symbol = reader.read()) != -1) {
-                // UTF-8 декодер выдаёт символы вне BMP как суррогатные пары.
-                if (Character.isHighSurrogate((char) symbol)) {
-                    symbol = Character.toCodePoint((char) symbol, (char) reader.read());
+            char[] buffer = new char[8192];
+            char pendingHighSurrogate = 0;
+            int count;
+            while ((count = reader.read(buffer)) != -1) {
+
+                for (int i = 0; i < count; i++) {
+                    int symbol = buffer[i];
+                    if (pendingHighSurrogate != 0) {
+                        symbol = Character.toCodePoint(pendingHighSurrogate, buffer[i]);
+                        pendingHighSurrogate = 0;
+                    } else if (Character.isHighSurrogate(buffer[i])) {
+                        pendingHighSurrogate = buffer[i];
+                        continue;
+                    }
+
+                    while (matched > 0 && symbol != pattern[matched]) {
+                        matched = prefix[matched - 1];
+                    }
+                    if (symbol == pattern[matched]) {
+                        matched++;
+                    }
+                    if (matched == pattern.length) {
+                        matches.add(position - pattern.length + 1);
+                        matched = prefix[matched - 1];
+                    }
+                    position++;
                 }
-                while (matched > 0 && symbol != pattern[matched]) {
-                    matched = prefix[matched - 1];
-                }
-                if (symbol == pattern[matched]) {
-                    matched++;
-                }
-                if (matched == pattern.length) {
-                    matches.add(position - pattern.length + 1);
-                    matched = prefix[matched - 1];
-                }
-                position++;
             }
         }
         return matches;

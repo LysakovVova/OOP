@@ -86,6 +86,13 @@ class SubstringSearchTest {
         assertEquals(List.of(8192L, 16387L), SubstringSearch.find(file, "бра"));
     }
 
+    /** Проверяет обычное и пересекающиеся совпадения на границе блоков. */
+    @Test
+    void shouldKeepMatchingStateBetweenBlocks() throws IOException {
+        String file = write("x".repeat(8191) + "abababa");
+        assertEquals(List.of(8191L, 8193L), SubstringSearch.find(file, "ababa"));
+    }
+
     /** Проверяет подстроку, которая длиннее буфера. */
     @Test
     void shouldSupportLongPattern() throws IOException {
